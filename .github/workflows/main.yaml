@@ -20,7 +20,11 @@ jobs:
       - name: Set release version
         run: RELEASE_VERSION=lorem-ipsum
       - name: Check release version
-        run: echo $RELEASE_VERSION
+        run: echo $RELEASE_VERSION > test
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test
+          path: ./test
       # - name: Build
       #   uses: docker/build-push-action@v4
       #   with:
