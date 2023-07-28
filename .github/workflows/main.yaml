@@ -20,11 +20,9 @@ jobs:
       - name: Set release version
         id: set-release-version
         run: echo "RELEASE_VERSION=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
-      - name: Check release version
-        run: echo "Output is ${{ steps.set-release-version.outputs.RELEASE_VERSION }}"
-      # - name: Build
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     file: ./Dockerfile
-      #     push: true
-      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-infrastructure-overview
+      - name: Build
+        uses: docker/build-push-action@v4
+        with:
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-infrastructure-overview:${{ steps.set-release-version.outputs.RELEASE_VERSION }}
