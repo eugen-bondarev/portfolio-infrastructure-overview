@@ -19,9 +19,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
       - name: Set release version
         id: set-release-version
-        run: echo "RELEASE_VERSION=lorem-ipsum" >> $GITHUB_OUTPUT
-      - name: Install json parser
-        run: sudo apt-get install jq
+        run: echo "RELEASE_VERSION=$(cat package.json | jq -r '.version')" >> $GITHUB_OUTPUT
       - name: Check release version
         run: echo "Output is ${{ steps.set-release-version.outputs.RELEASE_VERSION }}"
       # - name: Build
