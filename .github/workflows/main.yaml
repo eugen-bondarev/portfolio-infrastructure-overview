@@ -20,6 +20,8 @@ jobs:
       - name: Set release version
         id: set-release-version
         run: echo "RELEASE_VERSION=lorem-ipsum" >> $GITHUB_OUTPUT
+      - name: Install json parser
+        run: sudo apt-get install jq
       - name: Check release version
         run: echo "Output is ${{ steps.set-release-version.outputs.RELEASE_VERSION }}"
       # - name: Build
