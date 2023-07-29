@@ -1,6 +1,7 @@
 'use client'
 import Node from './components/Node'
 import { useLayoutEffect, useState } from 'react'
+import Image from 'next/image'
 
 const useElements = ({
   fromSelector,
@@ -79,7 +80,8 @@ const Connection = ({
 export default function Home() {
   return (
     <div className="flex items-center p-20 flex-col gap-[4rem]">
-      <Connection from="#a" to="#b" />
+      <Image src="schema.svg" width={2000} height={2000} alt="Icon" />
+      {/* <Connection from="#a" to="#b" />
       <Connection from="#b" to="#c" />
       <Connection from="#c" to="#d" />
       <Node
@@ -106,7 +108,7 @@ export default function Home() {
         icon="icons/Ingress.svg"
         title="Ingress"
         description="Traffic is redirected to one of the subdomains of eugen-bondarev.com"
-      />
+      /> */}
     </div>
   )
 }
