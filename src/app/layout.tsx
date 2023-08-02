@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import './globals.css'
+import './main.scss'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 

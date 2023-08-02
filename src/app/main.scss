@@ -1,0 +1,13 @@
+.react-flow__edges {
+  overflow: visible;
+  g path {
+    stroke: red;
+  }
+}
+
+.canvas-container {
+  height: 100%;
+  & > div {
+    height: 100%;
+  }
+}
