@@ -11,14 +11,14 @@ const graph: Graph<NodeData> = {
   nodes: [
     {
       id: 'Terraform',
-      position: [middle - 475, startHeight + 460],
+      position: [middle - 475, startHeight + 425],
       locked: true,
       data: {
         icon: 'icons/Terraform.svg',
         title: 'Kubernetes Cluster managed via Terraform',
         style: {
           width: `${1300}px`,
-          height: `${1400}px`,
+          height: `${1450}px`,
           background: 'transparent',
           border: `${4}px solid rgb(${226}, ${232}, ${240})`,
         },
