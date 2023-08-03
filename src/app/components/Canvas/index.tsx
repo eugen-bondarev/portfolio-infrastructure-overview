@@ -1,33 +1,8 @@
 'use client'
-import createEngine, {
-  DefaultLinkModel,
-  DiagramModel,
-  PortModelAlignment,
-  RightAngleLinkFactory,
-} from '@projectstorm/react-diagrams'
-
 import { CanvasWidget } from '@projectstorm/react-canvas-core'
-import { useMemo } from 'react'
-import { DiamondNodeFactory } from './DiamondNodeFactory'
-import { DiamondNodeModel } from './DiamondNodeModel'
 import NodeData from '@/app/types/nodeData'
-
-interface Node<T> {
-  label: string
-  id: string
-  position: [number, number]
-  data: T
-}
-
-interface Edge {
-  target: string
-  source: string
-}
-
-interface Graph<T> {
-  nodes: Node<T>[]
-  edges: Edge[]
-}
+import Graph from '@/app/types/graph'
+import useEngine from '@/app/util/hooks/useEngine'
 
 const middle = (window.innerWidth - 200) / 2
 const startHeight = 200
@@ -77,51 +52,8 @@ const graph: Graph<NodeData> = {
   ],
 }
 
-const createMyEngine = <T,>(graph: Graph<T>) => {
-  const engine = createEngine()
-  engine.getLinkFactories().registerFactory(new RightAngleLinkFactory())
-  engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
-
-  const nodes = graph.nodes.map((nodeDescriptor) => {
-    const node = new DiamondNodeModel(nodeDescriptor.data)
-    node.setPosition(nodeDescriptor.position[0], nodeDescriptor.position[1])
-    return {
-      object: node,
-      id: nodeDescriptor.id,
-    }
-  })
-
-  const links = graph.edges
-    .map((edgeDescriptor) => {
-      const node1ID = edgeDescriptor.source
-      const node1 = nodes.find((node) => node.id === node1ID)
-
-      const node2ID = edgeDescriptor.target
-      const node2 = nodes.find((node) => node.id === node2ID)
-
-      if (!node1 || !node2) {
-        return
-      }
-
-      const port1 = node1.object.getPort(PortModelAlignment.BOTTOM)
-      const port2 = node2.object.getPort(PortModelAlignment.TOP)
-
-      const linkModel = new DefaultLinkModel()
-      linkModel.setSourcePort(port1)
-      linkModel.setTargetPort(port2)
-      return linkModel
-    })
-    .filter(Boolean) as DefaultLinkModel[]
-
-  const model = new DiagramModel()
-  const nodeObjects = nodes.map(({ object }) => object)
-  model.addAll(...nodeObjects, ...links)
-  engine.setModel(model)
-  return engine
-}
-
 const Canvas = () => {
-  const engine = useMemo(() => createMyEngine(graph), [])
+  const engine = useEngine(graph)
 
   return (
     <div className="canvas-container">

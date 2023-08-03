@@ -3,7 +3,7 @@ import {
   NodeModelGenerics,
   PortModelAlignment,
 } from '@projectstorm/react-diagrams'
-import { DiamondPortModel } from './DiamondPortModel'
+import { DiamondPortModel } from './diamondPortModel'
 
 export interface DiamondNodeModelGenerics {
   PORT: DiamondPortModel

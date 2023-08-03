@@ -1,5 +1,5 @@
 import useElementSize from '@/app/util/hooks/useElementSize'
-import { DiamondNodeModel } from './DiamondNodeModel'
+import { DiamondNodeModel } from '@/app/types/diamondNodeModel'
 import {
   DiagramEngine,
   PortModelAlignment,

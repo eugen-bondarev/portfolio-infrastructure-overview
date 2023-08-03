@@ -1,30 +1,80 @@
-import Image from 'next/image'
-import clsx from 'clsx'
+import useElementSize from '@/app/util/hooks/useElementSize'
+import { DiamondNodeModel } from '@/app/types/diamondNodeModel'
+import {
+  DiagramEngine,
+  PortModelAlignment,
+  PortWidget,
+} from '@projectstorm/react-diagrams'
+import { MutableRefObject, useRef } from 'react'
+import NodeData from '@/app/types/nodeData'
 
-interface NodeProps {
-  className?: string
-  icon?: string
-  title?: string
-  description?: string
-  id?: string
+const PORT_WIDTH = 32
+const PORT_HEIGHT = 8
+
+const Port = () => (
+  <div
+    style={{
+      width: `${PORT_WIDTH}px`,
+      height: `${PORT_HEIGHT}px`,
+      transform: `translateY(${PORT_HEIGHT / 2}px)`,
+    }}
+    className="cursor-pointer rounded-md bg-lime-500"
+  ></div>
+)
+
+export interface DiamondNodeWidgetProps {
+  node: DiamondNodeModel<NodeData>
+  engine: DiagramEngine
 }
 
-const Node = ({ className, id, icon, title, description }: NodeProps) => {
+const DiamondNodeWidget = ({ node, engine }: DiamondNodeWidgetProps) => {
+  const ref = useRef() as MutableRefObject<HTMLDivElement>
+  const [width, height] = useElementSize(ref)
+  const isInitialized = width * height !== 0
+
   return (
     <div
-      id={id}
-      className={clsx(
-        className,
-        'bg-slate-200 p-8 flex flex-col rounded-xl text-slate-900 w-[400px] gap-4'
-      )}
+      style={{
+        position: 'relative',
+        width,
+        height,
+      }}
     >
-      <div className="flex gap-4 items-center h-10">
-        {icon ? <Image src={icon} width={48} height={48} alt="Icon" /> : null}
-        <h1 className="font-bold text-2xl">{title}</h1>
+      <div
+        ref={ref}
+        className="w-[200px] p-4 bg-slate-200 shadow-md rounded-md"
+      >
+        <h2 className="text-2xl font-bold">{node.data.title}</h2>
+        <p>{node.data.description}</p>
       </div>
-      <p>{description}</p>
+      {isInitialized ? (
+        <>
+          <PortWidget
+            style={{
+              left: width / 2 - PORT_WIDTH / 2,
+              top: -PORT_HEIGHT,
+              position: 'absolute',
+            }}
+            port={node.getPort(PortModelAlignment.TOP)!}
+            engine={engine}
+          >
+            <Port />
+          </PortWidget>
+          <PortWidget
+            style={{
+              left: width / 2 - PORT_WIDTH / 2,
+              top: height - PORT_HEIGHT,
+              position: 'absolute',
+            }}
+            port={node.getPort(PortModelAlignment.BOTTOM)!}
+            engine={engine}
+          >
+            <Port />
+          </PortWidget>
+        </>
+      ) : null}
     </div>
   )
 }
 
-export default Node
+export default DiamondNodeWidget
