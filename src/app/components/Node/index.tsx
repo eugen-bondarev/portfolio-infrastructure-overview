@@ -8,6 +8,7 @@ import {
 import { MutableRefObject, useRef } from 'react'
 import NodeData from '@/app/types/nodeData'
 import Image from 'next/image'
+import clsx from 'clsx'
 
 const PORT_WIDTH = 32
 const PORT_HEIGHT = 4
@@ -43,7 +44,18 @@ const Node = ({ node, engine }: NodeProps) => {
     >
       <div
         ref={ref}
-        className="w-[350px] p-4 flex flex-col gap-4 bg-slate-200 shadow-lg rounded-md"
+        style={{
+          width: node.data.forceWidth ? `${node.data.forceWidth}px` : undefined,
+          height: node.data.forceHeight
+            ? `${node.data.forceHeight}px`
+            : undefined,
+          backgroundColor: node.data.forceColor,
+        }}
+        className={clsx(
+          !node.data.forceWidth ? 'w-[350px]' : undefined,
+          !node.data.forceColor ? 'bg-slate-200' : undefined,
+          'p-4 flex flex-col gap-4 shadow-lg rounded-md'
+        )}
       >
         {node.data.title && node.data.icon ? (
           <div className="flex gap-4 items-center">

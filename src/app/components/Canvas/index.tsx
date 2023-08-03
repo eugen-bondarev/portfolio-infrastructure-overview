@@ -10,6 +10,18 @@ const startHeight = 100
 const graph: Graph<NodeData> = {
   nodes: [
     {
+      id: 'Terraform',
+      position: [middle - 475, startHeight + 460],
+      data: {
+        forceWidth: 1300,
+        forceHeight: 1400,
+        icon: 'icons/Terraform.svg',
+        title: 'Terraform',
+        forceColor: '#fafbfc',
+        // description: 'Request to *.eugen-bondarev.com',
+      },
+    },
+    {
       id: 'Browser',
       position: [middle, startHeight],
       data: {
