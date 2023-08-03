@@ -44,16 +44,10 @@ const Node = ({ node, engine }: NodeProps) => {
     >
       <div
         ref={ref}
-        style={{
-          width: node.data.forceWidth ? `${node.data.forceWidth}px` : undefined,
-          height: node.data.forceHeight
-            ? `${node.data.forceHeight}px`
-            : undefined,
-          backgroundColor: node.data.forceColor,
-        }}
+        style={node.data.style}
         className={clsx(
-          !node.data.forceWidth ? 'w-[350px]' : undefined,
-          !node.data.forceColor ? 'bg-slate-200' : undefined,
+          !node.data.style?.width ? 'w-[350px]' : undefined,
+          !node.data.style?.background ? 'bg-slate-200' : undefined,
           'p-4 flex flex-col gap-4 shadow-lg rounded-md'
         )}
       >
@@ -77,6 +71,7 @@ const Node = ({ node, engine }: NodeProps) => {
               left: width / 2 - PORT_WIDTH / 2,
               top: -PORT_HEIGHT,
               position: 'absolute',
+              opacity: node.data.hideInputPort ? 0.0 : 1.0,
             }}
             port={node.getPort(PortModelAlignment.TOP)!}
             engine={engine}
@@ -88,6 +83,7 @@ const Node = ({ node, engine }: NodeProps) => {
               left: width / 2 - PORT_WIDTH / 2,
               top: height - PORT_HEIGHT,
               position: 'absolute',
+              opacity: node.data.hideOutputPort ? 0.0 : 1.0,
             }}
             port={node.getPort(PortModelAlignment.BOTTOM)!}
             engine={engine}

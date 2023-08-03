@@ -12,13 +12,18 @@ const graph: Graph<NodeData> = {
     {
       id: 'Terraform',
       position: [middle - 475, startHeight + 460],
+      locked: true,
       data: {
-        forceWidth: 1300,
-        forceHeight: 1400,
         icon: 'icons/Terraform.svg',
         title: 'Terraform',
-        forceColor: '#fafbfc',
-        // description: 'Request to *.eugen-bondarev.com',
+        style: {
+          width: `${1300}px`,
+          height: `${1400}px`,
+          background: 'transparent',
+          border: `${4}px solid rgb(${226}, ${232}, ${240})`,
+        },
+        hideInputPort: true,
+        hideOutputPort: true,
       },
     },
     {

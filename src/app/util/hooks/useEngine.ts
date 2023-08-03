@@ -18,6 +18,9 @@ const createMyEngine = <T>(graph: Graph<T>) => {
 
   const nodes = graph.nodes.map((nodeDescriptor) => {
     const node = new NodeModel(nodeDescriptor.data)
+    if (nodeDescriptor.locked) {
+      node.setLocked()
+    }
     node.setPosition(nodeDescriptor.position[0], nodeDescriptor.position[1])
     return {
       object: node,

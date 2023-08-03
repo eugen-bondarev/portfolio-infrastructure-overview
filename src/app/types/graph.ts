@@ -1,6 +1,7 @@
 export interface Node<T> {
   id: string
   position: [number, number]
+  locked?: boolean
   data: T
 }
 
