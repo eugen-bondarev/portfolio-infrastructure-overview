@@ -1,14 +1,9 @@
 'use client'
 import createEngine, {
-  AbstractModelFactory,
   DefaultLinkModel,
-  DefaultNodeModel,
-  DefaultPortModel,
   DiagramModel,
-  LinkModel,
   PortModelAlignment,
   RightAngleLinkFactory,
-  RightAngleLinkModel,
 } from '@projectstorm/react-diagrams'
 
 import { CanvasWidget } from '@projectstorm/react-canvas-core'
@@ -16,17 +11,11 @@ import { useMemo } from 'react'
 import { DiamondNodeFactory } from './DiamondNodeFactory'
 import { DiamondNodeModel } from './DiamondNodeModel'
 
-// When new link is created by clicking on port the RightAngleLinkModel needs to be returned.
-class RightAnglePortModel extends DefaultPortModel {
-  createLinkModel(factory?: AbstractModelFactory<LinkModel>) {
-    return new RightAngleLinkModel()
-  }
-}
-
-interface Node {
+interface Node<T> {
   label: string
   id: string
   position: [number, number]
+  data: T
 }
 
 interface Edge {
@@ -34,30 +23,51 @@ interface Edge {
   source: string
 }
 
-interface Graph {
-  nodes: Node[]
+interface Graph<T> {
+  nodes: Node<T>[]
   edges: Edge[]
 }
 
 const middle = (window.innerWidth - 200) / 2
 const startHeight = 200
 
-const graph: Graph = {
+interface NodeData {
+  icon: string
+  title: string
+  description: string
+}
+
+const graph: Graph<NodeData> = {
   nodes: [
     {
       id: '1',
       label: 'Node 1',
       position: [middle, startHeight],
+      data: {
+        icon: 'google',
+        title: 'google',
+        description: 'google',
+      },
     },
     {
       id: '2',
       label: 'Node 2',
       position: [middle - 200, startHeight + 300],
+      data: {
+        icon: 'test',
+        title: 'test',
+        description: 'test',
+      },
     },
     {
       id: '3',
       label: 'Node 3',
       position: [middle + 200, startHeight + 300],
+      data: {
+        icon: 'ingress',
+        title: 'ingress',
+        description: 'ingress',
+      },
     },
   ],
   edges: [
@@ -72,13 +82,13 @@ const graph: Graph = {
   ],
 }
 
-const createMyEngine = (graph: Graph) => {
+const createMyEngine = <T,>(graph: Graph<T>) => {
   const engine = createEngine()
   engine.getLinkFactories().registerFactory(new RightAngleLinkFactory())
   engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
 
   const nodes = graph.nodes.map((nodeDescriptor) => {
-    const node = new DiamondNodeModel()
+    const node = new DiamondNodeModel(nodeDescriptor.data)
     node.setPosition(nodeDescriptor.position[0], nodeDescriptor.position[1])
     return {
       object: node,

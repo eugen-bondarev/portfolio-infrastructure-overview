@@ -12,11 +12,14 @@ export interface DiamondNodeModelGenerics {
 export class DiamondNodeModel extends NodeModel<
   NodeModelGenerics & DiamondNodeModelGenerics
 > {
-  constructor() {
+  private data: any | undefined
+
+  constructor(data: any | undefined) {
     super({
       type: 'diamond',
     })
     this.addPort(new DiamondPortModel(PortModelAlignment.TOP))
     this.addPort(new DiamondPortModel(PortModelAlignment.BOTTOM))
+    this.data = data
   }
 }

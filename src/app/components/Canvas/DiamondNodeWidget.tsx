@@ -1,71 +1,79 @@
-import * as React from 'react'
 import { DiamondNodeModel } from './DiamondNodeModel'
 import {
   DiagramEngine,
   PortModelAlignment,
   PortWidget,
 } from '@projectstorm/react-diagrams'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
+
+const Port = () => (
+  <div className="w-8 h-2 cursor-pointer rounded-md bg-lime-500 transform translate-y-1"></div>
+)
 
 export interface DiamondNodeWidgetProps {
   node: DiamondNodeModel
   engine: DiagramEngine
-  size?: number
 }
 
-const Port = ({ children }: any) => (
-  <div
-    style={{
-      // width: `${16}px`,
-      // height: `${16}px`,
-      zIndex: 10,
-      // background: 'green',
-      borderRadius: `${10}px`,
-      cursor: 'pointer',
-    }}
-    className="w-8 h-2 bg-lime-500 transform translate-y-1"
-  >
-    {children}
-  </div>
-)
+const DiamondNodeWidget = ({ node, engine }: DiamondNodeWidgetProps) => {
+  const ref = useRef() as MutableRefObject<HTMLDivElement>
 
-const DiamondNodeWidget = (props: any) => {
-  const size = {
-    width: 200,
-    height: 100,
-  }
+  const [width, setWidth] = useState(0)
+  const [height, setHeight] = useState(0)
+
+  useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      console.log({ entries })
+      setWidth(entries[0].borderBoxSize[0].inlineSize)
+      setHeight(entries[0].borderBoxSize[0].blockSize)
+    })
+    observer.observe(ref.current)
+    return () => ref.current && observer.unobserve(ref.current)
+  }, [])
+
+  const isInitialized = width * height !== 0
 
   return (
     <div
-      className={'diamond-node'}
       style={{
         position: 'relative',
-        width: size.width,
-        height: size.height,
+        width,
+        height,
       }}
     >
-      <div className="w-[200px] h-[100px] bg-slate-200 shadow-md rounded-md"></div>
-      <PortWidget
-        style={{
-          left: size.width / 2 - 16,
-          top: -8,
-          position: 'absolute',
-        }}
-        port={props.node.getPort(PortModelAlignment.TOP)}
-        engine={props.engine}
+      <div
+        ref={ref}
+        className="w-[200px] p-4 bg-slate-200 shadow-md rounded-md"
       >
-        <Port />
-      </PortWidget>
-      <PortWidget
-        style={{
-          left: size.width / 2 - 16,
-          top: size.height - 8,
-          position: 'absolute',
-        }}
-        port={props.node.getPort(PortModelAlignment.BOTTOM)}
-        engine={props.engine}
-      >
-        <Port />
-      </PortWidget>
+        <h2 className="text-2xl font-bold">{node.data.title}</h2>
+        <p>{node.data.description}</p>
+      </div>
+      {isInitialized ? (
+        <>
+          <PortWidget
+            style={{
+              left: width / 2 - 16,
+              top: -8,
+              position: 'absolute',
+            }}
+            port={node.getPort(PortModelAlignment.TOP)!}
+            engine={engine}
+          >
+            <Port />
+          </PortWidget>
+          <PortWidget
+            style={{
+              left: width / 2 - 16,
+              top: height - 8,
+              position: 'absolute',
+            }}
+            port={node.getPort(PortModelAlignment.BOTTOM)!}
+            engine={engine}
+          >
+            <Port />
+          </PortWidget>
+        </>
+      ) : null}
     </div>
   )
 }
