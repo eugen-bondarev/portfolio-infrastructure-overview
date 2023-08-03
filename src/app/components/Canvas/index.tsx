@@ -10,7 +10,7 @@ const startHeight = 100
 const graph: Graph<NodeData> = {
   nodes: [
     {
-      id: 'Terraform',
+      id: 'Kubernetes Cluster managed via Terraform',
       position: [middle - 475, startHeight + 460],
       locked: true,
       data: {
