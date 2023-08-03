@@ -83,8 +83,6 @@ const createMyEngine = (graph: Graph) => {
     return {
       object: node,
       id: nodeDescriptor.id,
-      inPort: node.inPort,
-      outPort: node.outPort,
     }
   })
 

@@ -12,22 +12,21 @@ export interface DiamondNodeWidgetProps {
   size?: number
 }
 
-namespace S {
-  export const Port = ({ children }: any) => (
-    <div
-      style={{
-        width: `${16}px`,
-        height: `${16}px`,
-        zIndex: 10,
-        background: 'green',
-        borderRadius: `${10}px`,
-        cursor: 'pointer',
-      }}
-    >
-      {children}
-    </div>
-  )
-}
+const Port = ({ children }: any) => (
+  <div
+    style={{
+      // width: `${16}px`,
+      // height: `${16}px`,
+      zIndex: 10,
+      // background: 'green',
+      borderRadius: `${10}px`,
+      cursor: 'pointer',
+    }}
+    className="w-8 h-2 bg-lime-500 transform translate-y-1"
+  >
+    {children}
+  </div>
+)
 
 const DiamondNodeWidget = (props: any) => {
   const size = {
@@ -45,55 +44,27 @@ const DiamondNodeWidget = (props: any) => {
       }}
     >
       <div className="w-[200px] h-[100px] bg-slate-200 shadow-md rounded-md"></div>
-      {/* <svg
-          width={props.size}
-          height={props.size}
-          dangerouslySetInnerHTML={{
-            __html:
-              `
-          <g id="Layer_1">
-          </g>
-          <g id="Layer_2">
-            <polygon fill="mediumpurple" stroke="${
-              props.node.isSelected() ? 'white' : '#000000'
-            }" stroke-width="3" stroke-miterlimit="10" points="10,` +
-              props.size / 2 +
-              ` ` +
-              props.size / 2 +
-              `,10 ` +
-              (props.size - 10) +
-              `,` +
-              props.size / 2 +
-              ` ` +
-              props.size / 2 +
-              `,` +
-              (props.size - 10) +
-              ` "/>
-          </g>
-        `,
-          }}
-        /> */}
       <PortWidget
         style={{
-          left: size.width / 2 - 8,
+          left: size.width / 2 - 16,
           top: -8,
           position: 'absolute',
         }}
         port={props.node.getPort(PortModelAlignment.TOP)}
         engine={props.engine}
       >
-        <S.Port />
+        <Port />
       </PortWidget>
       <PortWidget
         style={{
-          left: size.width / 2 - 8,
+          left: size.width / 2 - 16,
           top: size.height - 8,
           position: 'absolute',
         }}
         port={props.node.getPort(PortModelAlignment.BOTTOM)}
         engine={props.engine}
       >
-        <S.Port />
+        <Port />
       </PortWidget>
     </div>
   )
