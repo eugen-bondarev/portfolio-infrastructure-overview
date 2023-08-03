@@ -1,5 +1,4 @@
 export interface Node<T> {
-  label: string
   id: string
   position: [number, number]
   data: T

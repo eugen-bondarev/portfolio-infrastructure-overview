@@ -7,9 +7,10 @@ import {
 } from '@projectstorm/react-diagrams'
 import { MutableRefObject, useRef } from 'react'
 import NodeData from '@/app/types/nodeData'
+import Image from 'next/image'
 
 const PORT_WIDTH = 32
-const PORT_HEIGHT = 8
+const PORT_HEIGHT = 4
 
 const Port = () => (
   <div
@@ -18,7 +19,7 @@ const Port = () => (
       height: `${PORT_HEIGHT}px`,
       transform: `translateY(${PORT_HEIGHT / 2}px)`,
     }}
-    className="cursor-pointer rounded-md bg-lime-500"
+    className="cursor-pointer rounded-md bg-slate-400"
   ></div>
 )
 
@@ -42,10 +43,20 @@ const Node = ({ node, engine }: NodeProps) => {
     >
       <div
         ref={ref}
-        className="w-[200px] p-4 bg-slate-200 shadow-md rounded-md"
+        className="w-[350px] p-4 flex flex-col gap-4 bg-slate-200 shadow-lg rounded-md"
       >
-        <h2 className="text-2xl font-bold">{node.data.title}</h2>
-        <p>{node.data.description}</p>
+        {node.data.title && node.data.icon ? (
+          <div className="flex gap-4 items-center">
+            <Image
+              src={node.data.icon}
+              alt={node.data.title}
+              width={32}
+              height={32}
+            />
+            <h2 className="text-2xl font-bold">{node.data.title}</h2>
+          </div>
+        ) : null}
+        {node.data.description ? <p>{node.data.description}</p> : null}
       </div>
       {isInitialized ? (
         <>
