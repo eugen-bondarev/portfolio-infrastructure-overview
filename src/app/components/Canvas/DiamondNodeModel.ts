@@ -12,16 +12,11 @@ export interface DiamondNodeModelGenerics {
 export class DiamondNodeModel extends NodeModel<
   NodeModelGenerics & DiamondNodeModelGenerics
 > {
-  public inPort: any
-  public outPort: any
-
   constructor() {
     super({
       type: 'diamond',
     })
-    this.inPort = this.addPort(new DiamondPortModel(PortModelAlignment.TOP))
-    // this.addPort(new DiamondPortModel(PortModelAlignment.LEFT))
-    this.outPort = this.addPort(new DiamondPortModel(PortModelAlignment.BOTTOM))
-    // this.addPort(new DiamondPortModel(PortModelAlignment.RIGHT))
+    this.addPort(new DiamondPortModel(PortModelAlignment.TOP))
+    this.addPort(new DiamondPortModel(PortModelAlignment.BOTTOM))
   }
 }

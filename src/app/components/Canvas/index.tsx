@@ -39,22 +39,25 @@ interface Graph {
   edges: Edge[]
 }
 
+const middle = (window.innerWidth - 200) / 2
+const startHeight = 200
+
 const graph: Graph = {
   nodes: [
     {
       id: '1',
       label: 'Node 1',
-      position: [0, 100],
+      position: [middle, startHeight],
     },
     {
       id: '2',
       label: 'Node 2',
-      position: [-200, 400],
+      position: [middle - 200, startHeight + 300],
     },
     {
       id: '3',
       label: 'Node 3',
-      position: [200, 400],
+      position: [middle + 200, startHeight + 300],
     },
   ],
   edges: [

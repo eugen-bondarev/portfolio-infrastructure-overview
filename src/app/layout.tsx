@@ -18,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={clsx(inter.className, 'h-[1000px]')}>{children}</body>
+      <body className={clsx(inter.className, 'h-[1000px] overflow-hidden')}>
+        {children}
+      </body>
     </html>
   )
 }
