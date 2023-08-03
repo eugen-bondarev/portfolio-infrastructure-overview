@@ -1,18 +1,6 @@
-.react-flow__edges {
-  overflow: visible;
-  g path {
-    stroke: red;
-  }
-}
-
 .canvas-container {
   height: 100%;
   & > div {
     height: 100%;
   }
-}
-
-[data-default-node-name] {
-  height: 200px;
-  width: 200px;
 }
