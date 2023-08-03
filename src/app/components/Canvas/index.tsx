@@ -33,6 +33,7 @@ const graph: Graph<NodeData> = {
         icon: 'icons/Chrome.svg',
         title: 'Browser',
         description: 'Request to *.eugen-bondarev.com',
+        hideInputPort: true,
       },
     },
     {
@@ -108,6 +109,7 @@ const graph: Graph<NodeData> = {
       data: {
         icon: 'icons/MySQL.svg',
         title: 'MySQL',
+        hideOutputPort: true,
       },
     },
     {
@@ -116,6 +118,7 @@ const graph: Graph<NodeData> = {
       data: {
         icon: 'icons/Jenkins.svg',
         title: 'Jenkins',
+        hideOutputPort: true,
       },
     },
     {
@@ -133,6 +136,7 @@ const graph: Graph<NodeData> = {
         icon: 'icons/Prometheus.svg',
         title: 'Prometheus',
         description: 'Metrics from the entire cluster get gathered',
+        hideOutputPort: true,
       },
     },
   ],
