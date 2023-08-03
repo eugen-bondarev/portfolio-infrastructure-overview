@@ -6,18 +6,18 @@ import createEngine, {
   RightAngleLinkFactory,
 } from '@projectstorm/react-diagrams'
 
-import { DiamondNodeFactory } from '@/app/types/diamondNodeFactory'
-import { DiamondNodeModel } from '@/app/types/diamondNodeModel'
+import { NodeFactory } from '@/app/types/nodeFactory'
+import { NodeModel } from '@/app/types/nodeModel'
 import Graph from '@/app/types/graph'
 import { useMemo } from 'react'
 
 const createMyEngine = <T>(graph: Graph<T>) => {
   const engine = createEngine()
   engine.getLinkFactories().registerFactory(new RightAngleLinkFactory())
-  engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
+  engine.getNodeFactories().registerFactory(new NodeFactory())
 
   const nodes = graph.nodes.map((nodeDescriptor) => {
-    const node = new DiamondNodeModel(nodeDescriptor.data)
+    const node = new NodeModel(nodeDescriptor.data)
     node.setPosition(nodeDescriptor.position[0], nodeDescriptor.position[1])
     return {
       object: node,

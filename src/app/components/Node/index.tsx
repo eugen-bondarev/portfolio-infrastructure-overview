@@ -1,5 +1,5 @@
 import useElementSize from '@/app/util/hooks/useElementSize'
-import { DiamondNodeModel } from '@/app/types/diamondNodeModel'
+import { NodeModel } from '@/app/types/nodeModel'
 import {
   DiagramEngine,
   PortModelAlignment,
@@ -22,12 +22,12 @@ const Port = () => (
   ></div>
 )
 
-export interface DiamondNodeWidgetProps {
-  node: DiamondNodeModel<NodeData>
+export interface NodeProps {
+  node: NodeModel<NodeData>
   engine: DiagramEngine
 }
 
-const DiamondNodeWidget = ({ node, engine }: DiamondNodeWidgetProps) => {
+const Node = ({ node, engine }: NodeProps) => {
   const ref = useRef() as MutableRefObject<HTMLDivElement>
   const [width, height] = useElementSize(ref)
   const isInitialized = width * height !== 0
@@ -77,4 +77,4 @@ const DiamondNodeWidget = ({ node, engine }: DiamondNodeWidgetProps) => {
   )
 }
 
-export default DiamondNodeWidget
+export default Node

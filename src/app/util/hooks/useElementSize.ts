@@ -6,7 +6,6 @@ const useElementSize = <T extends HTMLElement>(ref: MutableRefObject<T>) => {
 
   useLayoutEffect(() => {
     const observer = new ResizeObserver((entries) => {
-      console.log({ entries })
       setWidth(entries[0].borderBoxSize[0].inlineSize)
       setHeight(entries[0].borderBoxSize[0].blockSize)
     })
