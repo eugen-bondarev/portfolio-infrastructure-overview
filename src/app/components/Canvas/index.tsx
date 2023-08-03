@@ -59,12 +59,12 @@ const graph: Graph = {
   ],
   edges: [
     {
-      target: '1',
-      source: '2',
+      source: '1',
+      target: '2',
     },
     {
-      target: '1',
-      source: '3',
+      source: '1',
+      target: '3',
     },
   ],
 }
@@ -77,15 +77,11 @@ const createMyEngine = (graph: Graph) => {
   const nodes = graph.nodes.map((nodeDescriptor) => {
     const node = new DiamondNodeModel()
     node.setPosition(nodeDescriptor.position[0], nodeDescriptor.position[1])
-    const inPort = node.addPort(new RightAnglePortModel(true, 'in-1', 'In'))
-    const outPort = node.addPort(new RightAnglePortModel(false, 'out-1', 'Out'))
-    // const inPort = node.getPort(PortModelAlignment.TOP)
-    // const outPort = node.getPort(PortModelAlignment.BOTTOM)
     return {
       object: node,
       id: nodeDescriptor.id,
-      inPort,
-      outPort,
+      inPort: node.inPort,
+      outPort: node.outPort,
     }
   })
 
@@ -100,8 +96,14 @@ const createMyEngine = (graph: Graph) => {
       if (!node1 || !node2) {
         return
       }
-      // return node1.outPort?.addLink()
-      return node1.outPort.link<DefaultLinkModel>(node2.inPort)
+
+      const port1 = node1.object.getPort(PortModelAlignment.BOTTOM)
+      const port2 = node2.object.getPort(PortModelAlignment.TOP)
+
+      const linkModel = new DefaultLinkModel()
+      linkModel.setSourcePort(port1)
+      linkModel.setTargetPort(port2)
+      return linkModel
     })
     .filter(Boolean) as DefaultLinkModel[]
 
