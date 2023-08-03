@@ -29,20 +29,25 @@ namespace S {
   )
 }
 
-export class DiamondNodeWidget extends React.Component<DiamondNodeWidgetProps> {
-  render() {
-    return (
-      <div
-        className={'diamond-node'}
-        style={{
-          position: 'relative',
-          width: this.props.size,
-          height: this.props.size,
-        }}
-      >
-        <svg
-          width={this.props.size}
-          height={this.props.size}
+const DiamondNodeWidget = (props: any) => {
+  const size = {
+    width: 200,
+    height: 100,
+  }
+
+  return (
+    <div
+      className={'diamond-node'}
+      style={{
+        position: 'relative',
+        width: size.width,
+        height: size.height,
+      }}
+    >
+      <div className="w-[200px] h-[100px] bg-slate-200 shadow-md rounded-md"></div>
+      {/* <svg
+          width={props.size}
+          height={props.size}
           dangerouslySetInnerHTML={{
             __html:
               `
@@ -50,47 +55,48 @@ export class DiamondNodeWidget extends React.Component<DiamondNodeWidgetProps> {
           </g>
           <g id="Layer_2">
             <polygon fill="mediumpurple" stroke="${
-              this.props.node.isSelected() ? 'white' : '#000000'
+              props.node.isSelected() ? 'white' : '#000000'
             }" stroke-width="3" stroke-miterlimit="10" points="10,` +
-              this.props.size / 2 +
+              props.size / 2 +
               ` ` +
-              this.props.size / 2 +
+              props.size / 2 +
               `,10 ` +
-              (this.props.size - 10) +
+              (props.size - 10) +
               `,` +
-              this.props.size / 2 +
+              props.size / 2 +
               ` ` +
-              this.props.size / 2 +
+              props.size / 2 +
               `,` +
-              (this.props.size - 10) +
+              (props.size - 10) +
               ` "/>
           </g>
         `,
           }}
-        />
-        <PortWidget
-          style={{
-            left: this.props.size / 2 - 8,
-            top: -8,
-            position: 'absolute',
-          }}
-          port={this.props.node.getPort(PortModelAlignment.TOP)}
-          engine={this.props.engine}
-        >
-          <S.Port />
-        </PortWidget>
-        <PortWidget
-          style={{
-            left: this.props.size / 2 - 8,
-            top: this.props.size - 8,
-            position: 'absolute',
-          }}
-          port={this.props.node.getPort(PortModelAlignment.BOTTOM)}
-          engine={this.props.engine}
-        >
-          <S.Port />
-        </PortWidget>
-      </div>
-    )
-  }
+        /> */}
+      <PortWidget
+        style={{
+          left: size.width / 2 - 8,
+          top: -8,
+          position: 'absolute',
+        }}
+        port={props.node.getPort(PortModelAlignment.TOP)}
+        engine={props.engine}
+      >
+        <S.Port />
+      </PortWidget>
+      <PortWidget
+        style={{
+          left: size.width / 2 - 8,
+          top: size.height - 8,
+          position: 'absolute',
+        }}
+        port={props.node.getPort(PortModelAlignment.BOTTOM)}
+        engine={props.engine}
+      >
+        <S.Port />
+      </PortWidget>
+    </div>
+  )
 }
+
+export default DiamondNodeWidget

@@ -1,4 +1,4 @@
-import { DiamondNodeWidget } from './DiamondNodeWidget'
+import DiamondNodeWidget from './DiamondNodeWidget'
 import { DiamondNodeModel } from './DiamondNodeModel'
 import * as React from 'react'
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core'
