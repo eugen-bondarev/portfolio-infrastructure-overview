@@ -6,12 +6,15 @@ import createEngine, {
   DefaultPortModel,
   DiagramModel,
   LinkModel,
+  PortModelAlignment,
   RightAngleLinkFactory,
   RightAngleLinkModel,
 } from '@projectstorm/react-diagrams'
 
 import { CanvasWidget } from '@projectstorm/react-canvas-core'
 import { useMemo } from 'react'
+import { DiamondNodeFactory } from './DiamondNodeFactory'
+import { DiamondNodeModel } from './DiamondNodeModel'
 
 // When new link is created by clicking on port the RightAngleLinkModel needs to be returned.
 class RightAnglePortModel extends DefaultPortModel {
@@ -41,12 +44,17 @@ const graph: Graph = {
     {
       id: '1',
       label: 'Node 1',
-      position: [100, 100],
+      position: [0, 100],
     },
     {
       id: '2',
       label: 'Node 2',
-      position: [400, 400],
+      position: [-200, 400],
+    },
+    {
+      id: '3',
+      label: 'Node 3',
+      position: [200, 400],
     },
   ],
   edges: [
@@ -54,21 +62,25 @@ const graph: Graph = {
       target: '1',
       source: '2',
     },
+    {
+      target: '1',
+      source: '3',
+    },
   ],
 }
 
 const createMyEngine = (graph: Graph) => {
   const engine = createEngine()
   engine.getLinkFactories().registerFactory(new RightAngleLinkFactory())
+  engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
 
   const nodes = graph.nodes.map((nodeDescriptor) => {
-    const node = new DefaultNodeModel({
-      name: nodeDescriptor.label,
-      color: 'rgb(0, 192, 255)',
-    })
+    const node = new DiamondNodeModel()
     node.setPosition(nodeDescriptor.position[0], nodeDescriptor.position[1])
     const inPort = node.addPort(new RightAnglePortModel(true, 'in-1', 'In'))
     const outPort = node.addPort(new RightAnglePortModel(false, 'out-1', 'Out'))
+    // const inPort = node.getPort(PortModelAlignment.TOP)
+    // const outPort = node.getPort(PortModelAlignment.BOTTOM)
     return {
       object: node,
       id: nodeDescriptor.id,
@@ -88,6 +100,7 @@ const createMyEngine = (graph: Graph) => {
       if (!node1 || !node2) {
         return
       }
+      // return node1.outPort?.addLink()
       return node1.outPort.link<DefaultLinkModel>(node2.inPort)
     })
     .filter(Boolean) as DefaultLinkModel[]
