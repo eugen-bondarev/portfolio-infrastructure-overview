@@ -1,36 +1,35 @@
+import useElementSize from '@/app/util/hooks/useElementSize'
 import { DiamondNodeModel } from './DiamondNodeModel'
 import {
   DiagramEngine,
   PortModelAlignment,
   PortWidget,
 } from '@projectstorm/react-diagrams'
-import { MutableRefObject, useEffect, useRef, useState } from 'react'
+import { MutableRefObject, useRef } from 'react'
+import NodeData from '@/app/types/nodeData'
+
+const PORT_WIDTH = 32
+const PORT_HEIGHT = 8
 
 const Port = () => (
-  <div className="w-8 h-2 cursor-pointer rounded-md bg-lime-500 transform translate-y-1"></div>
+  <div
+    style={{
+      width: `${PORT_WIDTH}px`,
+      height: `${PORT_HEIGHT}px`,
+      transform: `translateY(${PORT_HEIGHT / 2}px)`,
+    }}
+    className="cursor-pointer rounded-md bg-lime-500"
+  ></div>
 )
 
 export interface DiamondNodeWidgetProps {
-  node: DiamondNodeModel
+  node: DiamondNodeModel<NodeData>
   engine: DiagramEngine
 }
 
 const DiamondNodeWidget = ({ node, engine }: DiamondNodeWidgetProps) => {
   const ref = useRef() as MutableRefObject<HTMLDivElement>
-
-  const [width, setWidth] = useState(0)
-  const [height, setHeight] = useState(0)
-
-  useEffect(() => {
-    const observer = new ResizeObserver((entries) => {
-      console.log({ entries })
-      setWidth(entries[0].borderBoxSize[0].inlineSize)
-      setHeight(entries[0].borderBoxSize[0].blockSize)
-    })
-    observer.observe(ref.current)
-    return () => ref.current && observer.unobserve(ref.current)
-  }, [])
-
+  const [width, height] = useElementSize(ref)
   const isInitialized = width * height !== 0
 
   return (
@@ -52,8 +51,8 @@ const DiamondNodeWidget = ({ node, engine }: DiamondNodeWidgetProps) => {
         <>
           <PortWidget
             style={{
-              left: width / 2 - 16,
-              top: -8,
+              left: width / 2 - PORT_WIDTH / 2,
+              top: -PORT_HEIGHT,
               position: 'absolute',
             }}
             port={node.getPort(PortModelAlignment.TOP)!}
@@ -63,8 +62,8 @@ const DiamondNodeWidget = ({ node, engine }: DiamondNodeWidgetProps) => {
           </PortWidget>
           <PortWidget
             style={{
-              left: width / 2 - 16,
-              top: height - 8,
+              left: width / 2 - PORT_WIDTH / 2,
+              top: height - PORT_HEIGHT,
               position: 'absolute',
             }}
             port={node.getPort(PortModelAlignment.BOTTOM)!}

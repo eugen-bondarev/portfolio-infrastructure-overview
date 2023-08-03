@@ -10,6 +10,7 @@ import { CanvasWidget } from '@projectstorm/react-canvas-core'
 import { useMemo } from 'react'
 import { DiamondNodeFactory } from './DiamondNodeFactory'
 import { DiamondNodeModel } from './DiamondNodeModel'
+import NodeData from '@/app/types/nodeData'
 
 interface Node<T> {
   label: string
@@ -30,12 +31,6 @@ interface Graph<T> {
 
 const middle = (window.innerWidth - 200) / 2
 const startHeight = 200
-
-interface NodeData {
-  icon: string
-  title: string
-  description: string
-}
 
 const graph: Graph<NodeData> = {
   nodes: [

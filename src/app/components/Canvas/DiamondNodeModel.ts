@@ -9,12 +9,12 @@ export interface DiamondNodeModelGenerics {
   PORT: DiamondPortModel
 }
 
-export class DiamondNodeModel extends NodeModel<
+export class DiamondNodeModel<T> extends NodeModel<
   NodeModelGenerics & DiamondNodeModelGenerics
 > {
-  private data: any | undefined
+  public data: T
 
-  constructor(data: any | undefined) {
+  constructor(data: T) {
     super({
       type: 'diamond',
     })
