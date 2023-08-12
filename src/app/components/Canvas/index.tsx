@@ -42,7 +42,7 @@ const graph: Graph<NodeData> = {
       data: {
         icon: 'icons/Google.svg',
         title: 'Google Cloud DNS',
-        description: 'Traffic is redirected to 143.42.223.193',
+        description: 'Traffic is redirected to 172.105.146.184',
       },
     },
     {
@@ -66,28 +66,28 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'pipelines',
-      position: [middle - 400, startHeight + 250 * 4],
+      position: [middle - 400, startHeight + 970],
       data: {
         description: 'https://pipelines.eugen-bondarev.com',
       },
     },
     {
       id: 'portfolio',
-      position: [middle, startHeight + 250 * 4],
+      position: [middle, startHeight + 970],
       data: {
         description: 'https://eugen-bondarev.com',
       },
     },
     {
       id: 'metrics',
-      position: [middle + 400, startHeight + 250 * 4],
+      position: [middle + 400, startHeight + 970],
       data: {
         description: 'https://metrics.eugen-bondarev.com',
       },
     },
     {
       id: 'Nginx',
-      position: [middle, startHeight + 250 * 5],
+      position: [middle, startHeight + 1100],
       data: {
         icon: 'icons/Nginx.svg',
         title: 'Nginx',
@@ -97,7 +97,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'WordPress',
-      position: [middle, startHeight + 250 * 6],
+      position: [middle, startHeight + 1350],
       data: {
         icon: 'icons/WordPress.svg',
         title: 'WordPress',
@@ -114,7 +114,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'Jenkins',
-      position: [middle - 400, startHeight + 250 * 5],
+      position: [middle - 400, startHeight + 1100],
       data: {
         icon: 'icons/Jenkins.svg',
         title: 'Jenkins',
@@ -123,7 +123,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'Grafana',
-      position: [middle + 400, startHeight + 250 * 5],
+      position: [middle + 400, startHeight + 1100],
       data: {
         icon: 'icons/Grafana.svg',
         title: 'Grafana',
@@ -131,7 +131,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'Prometheus',
-      position: [middle + 400, startHeight + 250 * 6],
+      position: [middle + 400, startHeight + 1290],
       data: {
         icon: 'icons/Prometheus.svg',
         title: 'Prometheus',
