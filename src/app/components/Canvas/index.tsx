@@ -11,14 +11,14 @@ const graph: Graph<NodeData> = {
   nodes: [
     {
       id: 'Terraform',
-      position: [middle - 475, startHeight + 425],
+      position: [middle - 550, startHeight + 425],
       locked: true,
       data: {
         icon: 'icons/Terraform.svg',
         title: 'Kubernetes Cluster managed via Terraform',
         style: {
-          width: `${1300}px`,
-          height: `${1450}px`,
+          width: `${2000}px`,
+          height: `${1170}px`,
           background: 'transparent',
           border: `${4}px solid rgb(${226}, ${232}, ${240})`,
         },
@@ -66,7 +66,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'pipelines',
-      position: [middle - 400, startHeight + 970],
+      position: [middle - 500, startHeight + 970],
       data: {
         description: 'https://pipelines.eugen-bondarev.com',
       },
@@ -80,9 +80,16 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'metrics',
-      position: [middle + 400, startHeight + 970],
+      position: [middle + 500, startHeight + 970],
       data: {
         description: 'https://metrics.eugen-bondarev.com',
+      },
+    },
+    {
+      id: 'infrastructure',
+      position: [middle + 1000, startHeight + 970],
+      data: {
+        description: 'https://infrastructure.eugen-bondarev.com',
       },
     },
     {
@@ -105,7 +112,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'MySQL',
-      position: [middle, startHeight + 250 * 7],
+      position: [middle, startHeight + 1490],
       data: {
         icon: 'icons/MySQL.svg',
         title: 'MySQL',
@@ -114,7 +121,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'Jenkins',
-      position: [middle - 400, startHeight + 1100],
+      position: [middle - 500, startHeight + 1100],
       data: {
         icon: 'icons/Jenkins.svg',
         title: 'Jenkins',
@@ -123,7 +130,7 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'Grafana',
-      position: [middle + 400, startHeight + 1100],
+      position: [middle + 500, startHeight + 1100],
       data: {
         icon: 'icons/Grafana.svg',
         title: 'Grafana',
@@ -131,12 +138,29 @@ const graph: Graph<NodeData> = {
     },
     {
       id: 'Prometheus',
-      position: [middle + 400, startHeight + 1290],
+      position: [middle + 500, startHeight + 1290],
       data: {
         icon: 'icons/Prometheus.svg',
         title: 'Prometheus',
-        description: 'Metrics from the entire cluster get gathered',
+        description: 'Metrics from the entire cluster are gathered',
         hideOutputPort: true,
+      },
+    },
+    {
+      id: 'Grafana',
+      position: [middle + 500, startHeight + 1100],
+      data: {
+        icon: 'icons/Grafana.svg',
+        title: 'Grafana',
+      },
+    },
+    {
+      id: 'Next.js',
+      position: [middle + 1000, startHeight + 1100],
+      data: {
+        icon: 'icons/Next.js.svg',
+        title: 'Next.js',
+        description: 'This application :)',
       },
     },
   ],
@@ -153,10 +177,12 @@ const graph: Graph<NodeData> = {
       source: 'Linode',
       target: 'Ingress',
     },
-    ...['pipelines', 'portfolio', 'metrics'].map((target) => ({
-      source: 'Ingress',
-      target,
-    })),
+    ...['pipelines', 'portfolio', 'metrics', 'infrastructure'].map(
+      (target) => ({
+        source: 'Ingress',
+        target,
+      })
+    ),
     {
       source: 'portfolio',
       target: 'Nginx',
@@ -180,6 +206,10 @@ const graph: Graph<NodeData> = {
     {
       source: 'Grafana',
       target: 'Prometheus',
+    },
+    {
+      source: 'infrastructure',
+      target: 'Next.js',
     },
   ],
 }

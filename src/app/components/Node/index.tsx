@@ -46,7 +46,7 @@ const Node = ({ node, engine }: NodeProps) => {
         ref={ref}
         style={node.data.style}
         className={clsx(
-          !node.data.style?.width ? 'w-[350px]' : undefined,
+          !node.data.style?.width ? 'w-[400px]' : undefined,
           !node.data.style?.background ? 'bg-slate-200' : undefined,
           'p-4 flex flex-col gap-4 shadow-lg rounded-md'
         )}
